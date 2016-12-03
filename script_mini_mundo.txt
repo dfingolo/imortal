@@ -1,0 +1,64 @@
+CREATE SCHEMA `imortal`;
+
+
+
+CREATE TABLE `bairros` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+)
+
+
+
+CREATE TABLE `proprietarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
+  `endereco` varchar(80) NOT NULL,
+  `telefone` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `cpf_UNIQUE` (`cpf`)
+)
+
+
+
+
+CREATE TABLE `imoveis` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `endereco` varchar(80) NOT NULL,
+  `bairro_id` int NOT NULL,
+  `area` double NOT NULL,
+  `ant_proprietario_id` int NOT NULL,
+  `novo_proprietario_id` int DEFAULT NULL,
+  `descricao` varchar(100) NOT NULL,
+  `preco_min` double NOT NULL,
+  `preco_venda` double DEFAULT NULL,
+  `preco_compra` double DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `fk_bairro_id_idx` (`bairro_id`),
+  KEY `fk_ant_proprietario_id_idx` (`ant_proprietario_id`),
+  KEY `fk_novo_proprietario_id_idx` (`novo_proprietario_id`),
+  CONSTRAINT `fk_bairro_id` FOREIGN KEY (`bairro_id`) REFERENCES `bairros` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ant_proprietario_id` FOREIGN KEY (`ant_proprietario_id`) REFERENCES `proprietarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_novo_proprietario_id` FOREIGN KEY (`novo_proprietario_id`) REFERENCES `proprietarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+)
+
+
+
+INSERT INTO `imortal`.`bairros` (`nome`) VALUES ('A');
+
+
+
+INSERT INTO `imortal`.`proprietarios` (`nome`, `cpf`, `endereco`, `telefone`) VALUES ('Luis', '12345678915', 'Rua A', '2198857468');
+
+INSERT INTO `imortal`.`proprietarios` (`nome`, `cpf`, `endereco`, `telefone`) VALUES ('Jean', '98765432128', 'Rua B', '21987745568');
+
+
+
+INSERT INTO `imortal`.`imoveis` (`endereco`, `bairro_id`, `area`, `ant_proprietario_id`, `descricao`, `preco_min`, `preco_compra`) VALUES ('Rua A', '1', '50.5', '1', 'casa', '180000.00', '160000.00');
+
+INSERT INTO `imortal`.`imoveis` (`endereco`, `bairro_id`, `area`, `ant_proprietario_id`, `novo_proprietario_id`, `descricao`, `preco_min`, `preco_venda`, `preco_compra`) VALUES ('Rua B', '1', '45.7', '1', '2', 'casa', '150000.00', '180000.00', '120000.00');
