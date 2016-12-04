@@ -4,6 +4,19 @@
 
 <div class="container theme-showcase" role="main" style="margin-top: 50px;">
     <h1>Imóveis Vendidos</h1>
+    
+    <%
+        String novo = (String) request.getAttribute("novo");
+
+        if (novo == "true") {
+    %>
+
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        Imóvel Vendido com sucesso!
+    </div>
+
+    <% } %>
 
     <table class="table table-bordered">
         <tr>

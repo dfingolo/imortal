@@ -21,7 +21,34 @@ public class ImovelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {}
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            String fimovel = request.getParameter("imovel");
+            String fnovoProprietario = request.getParameter("novoProprietario");
+            String fprecoVenda = request.getParameter("precoVenda");
+
+            RequestDispatcher rd = null;
+            ResultSet rs = null;
+
+            ImovelDAO imovelDAO = new ImovelDAO();
+            Imovel imovel = new Imovel();
+
+            imovel.setId(parseInt(fimovel));
+            imovel.setNovoProprietarioId(parseInt(fnovoProprietario));
+            imovel.setPrecoVenda(parseDouble(fprecoVenda));
+            
+            imovelDAO.vender(imovel);
+
+            request.setAttribute("novo", "true");
+            rd = request.getRequestDispatcher("/imovel/listar_vendidos.jsp");
+            rd.forward(request, response);
+            out.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ProprietarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,13 +63,13 @@ public class ImovelServlet extends HttpServlet {
             String fdescricao = request.getParameter("descricao");
             String fprecoMin = request.getParameter("precoMin");
             String fprecoCompra = request.getParameter("precoCompra");
-            
+
             RequestDispatcher rd = null;
             ResultSet rs = null;
-            
+
             ImovelDAO imovelDAO = new ImovelDAO();
             Imovel imovel = new Imovel();
-            
+
             imovel.setEndereco(fendereco);
             imovel.setBairroId(parseInt(fbairro));
             imovel.setArea(parseDouble(farea));
@@ -50,9 +77,9 @@ public class ImovelServlet extends HttpServlet {
             imovel.setDescricao(fdescricao);
             imovel.setPrecoMin(parseDouble(fprecoMin));
             imovel.setPrecoCompra(parseDouble(fprecoCompra));
-            
+
             imovelDAO.adiciona(imovel);
-            
+
             request.setAttribute("novo", "true");
             rd = request.getRequestDispatcher("/imovel/listar_disponiveis.jsp");
             rd.forward(request, response);

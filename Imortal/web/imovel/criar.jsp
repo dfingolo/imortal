@@ -20,9 +20,9 @@
             <div class="col-sm-5">
                 <select class="form-control" name="bairro">
                     <option value="">Escolha um Bairro</option>
-                    <% for (Bairro bairro : bairroDAO.listar()) {%>
+                    <% for (Bairro bairro : bairroDAO.listar()) { %>
                     <option value="<%=bairro.getId()%>"><%=bairro.getNome()%></option>
-                    <% }%>
+                    <% } %>
                 </select>
             </div>
         </div>
@@ -39,9 +39,9 @@
             <div class="col-sm-5">
                 <select class="form-control" name="antigoProprietario">
                     <option value="">Escolha um Proprietário</option>
-                    <% for (Proprietario proprietario : proprietarioDAO.listar()) {%>
+                    <% for (Proprietario proprietario : proprietarioDAO.listar()) { %>
                     <option value="<%=proprietario.getId()%>"><%=proprietario.getNome()%></option>
-                    <% }%>
+                    <% } %>
                 </select>
             </div>
         </div>

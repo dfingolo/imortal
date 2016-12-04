@@ -33,6 +33,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/Imortal/imovel/criar.jsp">Novo</a></li>
                                 <li><a href="/Imortal/imovel/listar_disponiveis.jsp">Disponíveis</a></li>
+                                <li><a href="/Imortal/imovel/vender.jsp">Vender</a></li>
                                 <li><a href="/Imortal/imovel/listar_vendidos.jsp">Vendidos</a></li>
                             </ul>
                         </li>

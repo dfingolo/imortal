@@ -15,7 +15,7 @@ public class ImovelDAO extends Conexao {
     public void adiciona(Imovel imovel) {
         try {
             PreparedStatement pst = con.prepareStatement(
-                      "INSERT INTO imoveis "
+                    "INSERT INTO imoveis "
                     + " (endereco, bairro_id, area, ant_proprietario_id, descricao, preco_min, preco_compra) "
                     + " values (?, ?, ?, ?, ?, ?, ?)"
             );
@@ -35,13 +35,30 @@ public class ImovelDAO extends Conexao {
         }
     }
 
+    public void vender(Imovel imovel) {
+        try {
+            PreparedStatement pst = con.prepareStatement(
+                    "UPDATE imoveis SET novo_proprietario_id = ?, preco_venda = ? WHERE id = ?"
+            );
+
+            pst.setInt(1, imovel.getNovoProprietarioId());
+            pst.setDouble(2, imovel.getPrecoVenda());
+            pst.setInt(3, imovel.getId());
+
+            pst.execute();
+            pst.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Imovel> listarDisponiveis() throws SQLException {
         try {
             PreparedStatement pst = null;
             ResultSet rs = null;
             List<Imovel> imoveis = new ArrayList<Imovel>();
 
-            pst = con.prepareStatement("SELECT imoveis.endereco, bairros.nome AS bairro, imoveis.area, proprietarios.nome AS ant_proprietario, "
+            pst = con.prepareStatement("SELECT imoveis.id, imoveis.endereco, bairros.nome AS bairro, imoveis.area, proprietarios.nome AS ant_proprietario, "
                     + "    imoveis.descricao, ROUND(imoveis.preco_min, 2) AS preco_min, ROUND(imoveis.preco_compra, 2) AS preco_compra "
                     + "FROM imoveis "
                     + "    INNER JOIN bairros ON bairros.id = imoveis.bairro_id "
@@ -53,6 +70,7 @@ public class ImovelDAO extends Conexao {
             while (rs.next()) {
                 Imovel imovel = new Imovel();
 
+                imovel.setId(rs.getInt("id"));
                 imovel.setEndereco(rs.getString("endereco"));
                 imovel.setBairroNome(rs.getString("bairro"));
                 imovel.setArea(rs.getDouble("area"));
