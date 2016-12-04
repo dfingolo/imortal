@@ -5,7 +5,7 @@
 <div class="container theme-showcase" role="main" style="margin-top: 50px;">
     <h1>Compra de Imóveis</h1>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="margin-top: 20px;">
         <tr>
             <th>Nome</th>
             <th>CPF</th>

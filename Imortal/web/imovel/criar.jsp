@@ -7,7 +7,7 @@
 <div class="container theme-showcase" role="main" style="margin-top: 50px;">
     <h1>Novo Imóvel</h1>
 
-    <form class="form-horizontal" role="form" name="fCadastro" action="Imovel" method="POST">
+    <form class="form-horizontal" role="form" name="fCadastro" action="Imovel" method="POST" style="margin-top: 20px;">
         <div class="form-group">
             <label class="col-sm-2 control-label">Endereço</label>
             <div class="col-sm-5">

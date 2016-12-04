@@ -11,14 +11,14 @@
         if (novo == "true") {
     %>
 
-    <div class="alert alert-success alert-dismissible" role="alert">
+    <div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 20px;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         Bairro criado com sucesso!
     </div>
 
     <% } %>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" style="margin-top: 20px;">
         <tr>
             <th>Nome</th>
         </tr>
